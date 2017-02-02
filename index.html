@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Server not found</title>
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <style>
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Press Start 2P', cursive;
+  font-weight: 100;
+  background-color: #717171;
+  color: #f5f5f5;
+}
+
+#header {
+  position: relative;
+}
+
+#caret, #title {
+  display: inline-table;
+  margin: 0;
+}
+
+#paragraph {
+  font-family: sans-serif;
+}
+
+#container {
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 20%;
+}
+
+#score {
+  display: none;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+#button {
+  border-style: none;
+  font-size: 15px;
+  padding: 10px;
+}
+
+@keyframes fade {
+  100% {
+    opacity: 0;
+  }
+}
+
+.fade {
+  animation-duration: 2s;
+  animation-name: fade;
+}
+    </style>
+  </head>
+  <body>
+    <div id="score"></div>
+    <div id="container">
+      <div id="header">
+        <h1 id="caret">&gt;</h1>
+        <h1 id="title"> Server not found</h1>
+      </div>
+      <p id="paragraph">Min couldn't find this website. If you think there should be something here, you can search on <a href="#">archive.org</a> for this page.</p>
+      <button id="button">Try again</button>
+    </div>
+    <script src="game.js"></script>
+    <script>
+      // Things we'll use later
+      const SPACE = 32;
+      const LEFT  = 37;
+      const UP    = 38;
+      const RIGHT = 39;
+      const DOWN  = 40;
+
+      var title = document.getElementById('title');
+      var paragraph = document.getElementById('paragraph');
+      var button = document.getElementById('button');
+      var score = document.getElementById('score');
+
+      var flashing = setInterval(function () {
+        caret.style.visibility = caret.style.visibility == 'hidden' ? 'visible' : 'hidden';
+      }, 600);
+
+      var game = null; // We'll create this when the thing starts
+
+      var keys = {}; // A list of the keys pressed
+
+      var windowWidth = window.innerWidth;
+      var windowHeight = window.innerHeight;
+
+      window.addEventListener('resize', function () {
+        windowWidth = window.innerWidth;
+        windowHeight = window.innerHeight;
+      });
+
+      // If the user presses an arrow key, they begin playing the game
+      var firstPress = function (e) {
+        if (e.keyCode >= LEFT && e.keyCode <= DOWN) {
+          clearInterval(flashing);
+
+          // Hide the other text
+          title.remove();
+          paragraph.remove();
+          button.remove();
+          score.style.display = 'block';
+
+          keys[e.keyCode] = true;
+
+          // Remove this listener
+          document.body.removeEventListener('keydown', firstPress);
+
+          // Create the game
+          game = new Game();
+          game.start();
+        }
+      };
+      document.body.addEventListener('keydown', firstPress);
+    </script>
+  </body>
+</html>
