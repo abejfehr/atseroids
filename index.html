@@ -52,6 +52,30 @@ html, body {
   padding: 10px;
 }
 
+.asteroid {
+  position: absolute;
+  margin: 0;
+  top: 0;
+  left: 0;
+}
+
+.bullet {
+  display: none;
+  position: absolute;
+  background-color: #f5f5f5;
+  margin: 0;
+  top: 0;
+  left: 0;
+}
+
+.flame {
+  display: none;
+  position: absolute;
+  font-size: 15px;
+  left: -10px;
+  top: 9px;
+}
+
 @keyframes fade {
   100% {
     opacity: 0;
@@ -68,7 +92,7 @@ html, body {
     <div id="score"></div>
     <div id="container">
       <div id="header">
-        <h1 id="caret">&gt;</h1>
+        <h1 id="caret"><span class="flame">&lt;</span>&gt;</h1>
         <h1 id="title"> Server not found</h1>
       </div>
       <p id="paragraph">We couldn't find this website. If you think there should be something here, you can search on <a href="#">archive.org</a> for this page.</p>
