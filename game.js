@@ -275,8 +275,14 @@ class Game {
     window.requestAnimationFrame(updateWrapper);
 
     // Get keypresses
-    document.body.addEventListener('keydown', (e) => this.handleKeyDown(e.keyCode));
-    document.body.addEventListener('keyup', (e) => this.handleKeyUp(e.keyCode));
+    document.body.addEventListener('keydown', (e) => {
+      this.handleKeyDown(e.keyCode);
+      e.preventDefault();
+    });
+    document.body.addEventListener('keyup', (e) => {
+      this.handleKeyUp(e.keyCode);
+      e.preventDefault();
+    });
   }
 
   handleKeyDown (key) {
